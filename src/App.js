@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import OpenAI from "./OpenAI";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   const [input, setInput] = useState("");
+   const [output, setOutput] = useState("");
+
+   async function handleSubmit(event) {
+      event.preventDefault();
+      const output = await OpenAI.generateOutput(input, "text-davinci-002");
+      setOutput(output);
+   }
+
+   return (
+      <div>
+         <form onSubmit={handleSubmit}>
+            <input
+               type="text"
+               value={input}
+               onChange={(e) => setInput(e.target.value)}
+            />
+            <button type="submit">Generate Output</button>
+         </form>
+         <pre>{output}</pre>
+      </div>
+   );
 }
 
 export default App;
