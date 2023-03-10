@@ -7,8 +7,8 @@ function App() {
 
    async function handleSubmit(event) {
       event.preventDefault();
-      const output = await OpenAI.generateOutput(input, "text-davinci-002");
-      setOutput(output);
+      const generatedOutput = await OpenAI.generateOutput(input);
+      setOutput(generatedOutput);
    }
 
    return (
